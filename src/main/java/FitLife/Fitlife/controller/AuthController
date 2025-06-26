@@ -1,7 +1,10 @@
 package fitlife.controller;
 
+import fitlife.dto.LoginRequestDTO;
+import fitlife.dto.LoginResponseDTO;
 import fitlife.model.User;
 import fitlife.security.JwtUtil;
+import fitlife.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -9,17 +12,25 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final JwtUtil jwtUtil;
+    private final UserService userService;
 
-    public AuthController(JwtUtil jwtUtil) {
+    public AuthController(JwtUtil jwtUtil, UserService userService) {
         this.jwtUtil = jwtUtil;
+        this.userService = userService;
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody User user) {
-        // Validación básica (reemplazar por lógica real)
-        if ("admin@fitlife.com".equals(user.getEmail()) && "1234".equals(user.getPassword())) {
-            return jwtUtil.generateToken(user.getEmail());
+    public LoginResponseDTO login(@RequestBody LoginRequestDTO loginDTO) {
+        // Aquí debes validar el usuario con el servicio
+        User user = userService.buscarPorEmail(loginDTO.getEmail())
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        if (!user.getPassword().equals(loginDTO.getPassword())) {
+            throw new RuntimeException("Contraseña incorrecta");
         }
-        throw new RuntimeException("Credenciales inválidas");
+
+        String token = jwtUtil.generateToken(user.getEmail());
+        return new LoginResponseDTO(token);
     }
 }
+
