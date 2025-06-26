@@ -1,0 +1,29 @@
+package fitlife.service;
+
+import fitlife.model.User;
+import fitlife.repository.UserRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class UserService {
+    private final UserRepository userRepo;
+
+    public UserService(UserRepository repo) {
+        this.userRepo = repo;
+    }
+
+    public User crearUsuario(User user) {
+        return userRepo.save(user);
+    }
+
+    public Optional<User> buscarPorEmail(String email) {
+        return userRepo.findByEmail(email);
+    }
+
+    public List<User> listarUsuarios() {
+        return userRepo.findAll();
+    }
+}

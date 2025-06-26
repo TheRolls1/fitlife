@@ -1,0 +1,15 @@
+package fitlife.model;
+
+public class User {
+    private String id;
+    private String email;
+    private String password;
+    private String role; // ADMIN, ENTRENADOR, CLIENTE, etc.
+
+    public enum Role {
+        ADMIN,
+        ENTRENADOR,
+        CLIENTE,
+        NUTRICIONISTA
+    }
+}
