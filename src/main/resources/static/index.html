@@ -2,36 +2,31 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>FitLife Dashboard</title>
-  <script src="js/auth.js"></script>
-  <script src="js/api.js" defer></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      cargarUsuarios();
-    });
-  </script>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>FitLife Web</title>
 </head>
-<body class="bg-gray-100 text-gray-800 font-sans">
+<body>
 
-  <nav class="bg-green-600 p-4 text-white flex justify-between">
-    <h1 class="text-xl font-bold">FitLife Dashboard</h1>
-    <button onclick="logout()" class="bg-red-500 px-3 py-1 rounded hover:bg-red-600">Cerrar sesión</button>
-  </nav>
+  <h1>Bienvenido a FitLife</h1>
+  <p>Firebase se conectará desde esta página</p>
 
-  <main class="p-6">
-    <h2 class="text-2xl font-semibold mb-4">Usuarios Registrados</h2>
-    <table class="w-full bg-white shadow-md rounded">
-      <thead class="bg-green-200">
-        <tr>
-          <th class="p-2 text-left">Nombre</th>
-          <th class="p-2 text-left">Email</th>
-          <th class="p-2 text-left">Rol</th>
-        </tr>
-      </thead>
-      <tbody id="tabla-usuarios"></tbody>
-    </table>
-  </main>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-analytics.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAW8UonI3M-u1Ux4zuEe9AJwd6hA2yYH_w",
+      authDomain: "fitlife-1ddef.firebaseapp.com",
+      projectId: "fitlife-1ddef",
+      storageBucket: "fitlife-1ddef.appspot.com",
+      messagingSenderId: "788737512638",
+      appId: "1:788737512638:web:9c49e91c7476042f853aef",
+      measurementId: "G-Y4M4B4CQ1G"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    console.log("✅ Firebase conectado desde el navegador");
+  </script>
 
 </body>
 </html>
