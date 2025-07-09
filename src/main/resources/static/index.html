@@ -6,12 +6,11 @@
 </head>
 <body>
 
-  <h1>Bienvenido a FitLife</h1>
-  <p>Firebase se conectará desde esta página</p>
+  <h1>Probando conexión con Firebase</h1>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-analytics.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyAW8UonI3M-u1Ux4zuEe9AJwd6hA2yYH_w",
@@ -24,8 +23,23 @@
     };
 
     const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
-    console.log("✅ Firebase conectado desde el navegador");
+    const db = getFirestore(app);
+
+    // 👇 Esta función se ejecuta automáticamente al cargar la página
+    async function guardarUsuario() {
+      try {
+        const docRef = await addDoc(collection(db, "usuarios"), {
+          nombre: "Mayron",
+          edad: 27,
+          activo: true
+        });
+        console.log("✅ Usuario guardado con ID:", docRef.id);
+      } catch (e) {
+        console.error("❌ Error al guardar usuario:", e);
+      }
+    }
+
+    guardarUsuario(); // Ejecuta la función
   </script>
 
 </body>
