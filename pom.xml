@@ -22,19 +22,16 @@
 
     <properties>
         <java.version>17</java.version>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <springdoc.version>1.7.0</springdoc.version>
     </properties>
 
     <dependencies>
-        <!-- Spring Boot Web -->
+        <!-- Web y Seguridad -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
-        <!-- Spring Boot Security -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
@@ -58,7 +55,14 @@
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-ui</artifactId>
-            <version>1.7.0</version>
+            <version>${springdoc.version}</version>
+        </dependency>
+
+        <!-- Configuration Processor (opcional si usas @ConfigurationProperties) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
         </dependency>
 
         <!-- Testing -->
@@ -68,7 +72,6 @@
             <version>5.11.0</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -78,11 +81,11 @@
 
     <build>
         <plugins>
-            <!-- Spring Boot plugin para empaquetar jar -->
+            <!-- Spring Boot Plugin -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-boot.version}</version>
+                <!-- No es necesario definir versión, usa la del parent -->
                 <executions>
                     <execution>
                         <goals>
@@ -107,5 +110,3 @@
     </build>
 
 </project>
-
-
